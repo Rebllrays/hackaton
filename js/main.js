@@ -221,7 +221,7 @@ async function createStudent() {
         weekKpi: studentWeekKpi.value,
         monthKpi: studentMonthKpi.value,
     };
-    // console.log(productObj);
+
 
     await fetch(STUDENTS_API, {
         method:"POST",
@@ -246,15 +246,12 @@ addStudentBtn.addEventListener('click', createStudent);
 // read
 let currentPage =1;
 let search ="";
-let category ="";
+
 
 async function render() {
     let studentsList = document.querySelector("#students-list");
     studentsList.innerHTML = "";
-    let requestAPI = `${STUDENTS_API}?q=${search}&category=${category}&_page=${currentPage}&_limit=2`;
-    if(!category) {
-        requestAPI = `${STUDENTS_API}?q=${search}&_page=${currentPage}&_limit=2`;
-    };
+    let requestAPI = `${STUDENTS_API}?q=${search}&_page=${currentPage}&_limit=2`;
 
     let res = await fetch(requestAPI);
     let students = await res.json();
@@ -277,33 +274,17 @@ async function render() {
     }) ;
 
     if(students.length === 0) return;
-    addCategoryTodropdownMenu();
     addDeleteEvent();
     addEditEvent();
-    // getPagesCount(products);
 };
 render();
-
-// async function addCategoryTodropdownMenu() {
-//     let res = await fetch(STUDENTS_API);
-//     let data = await res.json();
-//     let categories = new Set (data.map(item => item.category));
-//     // console.log(categories);
-//     let categoriesList = document.querySelector(".dropdown-menu");
-//     categoriesList.innerHTML = '<li><a class="dropdown-item" href="#">All</a></li>';
-//     categories.forEach(item => {
-//         categoriesList.innerHTML +=`<li><a class="dropdown-item" href="#">${item}</a></li>`;
-//     });
-
-//     addClickEventOnDropdownItem();
-// };
 
 // delete 
 async function deleteProduct(e) {
     // console.log("OK!");
-    let productId = e.target.id.split("-")[1];
-    // console.log(productId);
-    await fetch(`${STUDENTS_API}/${productId}`, {
+    let studentId = e.target.id.split("-")[1];
+    // console.log(studentId);
+    await fetch(`${STUDENTS_API}/${studentId}`, {
         method: "DELETE"
     });
     render();
@@ -319,84 +300,66 @@ function addDeleteEvent() {
 let saveChangesBtn = document.querySelector(".save-student-btn");
 function checkCreateAndSaveBtn() {
     if(saveChangesBtn.id) {
-        addProductBtn.setAttribute("style", "display: none;");
+        addStudentBtn.setAttribute("style", "display: none;");
         saveChangesBtn.setAttribute("style", "display: block;");
     } else {
-        addProductBtn.setAttribute("style", "display: block;");
+        addStudentBtn.setAttribute("style", "display: block;");
         saveChangesBtn.setAttribute("style", "display: none;");
     }
 }
 checkCreateAndSaveBtn();
 
-async function addProductDataToForm(e) {
-    let productId = e.target.id.split("-")[1];
-    // console.log(productId);
-    let res = await fetch(`${STUDENTS_API}/${productId}`);
-    let productObj = await res.json();
-    // console.log(productObj);
+async function addStudentDataToForm(e) {
+    let studentId = e.target.id.split("-")[1];
+    let res = await fetch(`${STUDENTS_API}/${studentId}`);
+    let studentObj = await res.json();
 
-    productTitle.value = productObj.title;
-    productPrice.value = productObj.price;
-    productDesc.value = productObj.desc;
-    productImage.value = productObj.image;
-    productCategory.value = productObj.category;
+    studentName.value = studentObj.fullname;
+    studentPhoneNumber.value = studentObj.phone;
+    studentWeekKpi.value = studentObj.weekKpi;
+    studentMonthKpi.value = studentObj.monthKpi;
+    studentImg.value = studentObj.image;
 
-    saveChangesBtn.setAttribute("id", productObj.id);
+    saveChangesBtn.setAttribute("id", studentObj.id);
 
     checkCreateAndSaveBtn();
     render();
 };
 
 function addEditEvent() {
-    let editProductBtn = document.querySelectorAll(".btn-edit");
-    editProductBtn.forEach(item => item.addEventListener("click", addProductDataToForm));
+    let editStudentBtn = document.querySelectorAll(".btn-edit");
+    editStudentBtn.forEach(item => item.addEventListener("click", addStudentDataToForm));
 }
 
 async function saveChanges(e) {
-    let updatedProductObj = {
+    let updatedStudentObj = {
         id: e.target.id,
-        title:productTitle.value,
-        price:productPrice.value,
-        desc:productDesc.value,
-        image:productImage.value,
-        category:productCategory.value,
+        fullname:studentName.value,
+        image:studentImg.value,
+        phone:studentPhoneNumber.value,
+        weekKpi:studentWeekKpi.value,
+        month:studentMonthKpi.value,
     };
 
     await fetch(`${STUDENTS_API}/${e.target.id}`, {
         method: "PUT",
-        body:JSON.stringify(updatedProductObj),
+        body:JSON.stringify(updatedStudentObj),
         headers: {
             "Content-Type":"application/json;charset=utf-8"
         }
     });
 
-    productTitle.value ="";
-    productPrice.value ="";
-    productDesc.value ="";
-    productImage.value ="";
-    productCategory.value ="";
+    studentName.value ="";
+    studentImg.value ="";
+    studentPhoneNumber.value ="";
+    studentWeekKpi.value ="";
+    studentMonthKpi.value ="";
 
     saveChangesBtn.removeAttribute("id");
     checkCreateAndSaveBtn();
     render();
 };
 saveChangesBtn.addEventListener("click", saveChanges);
-
-// filtering 
-function filterOnCategory(e) {
-    let categoryText = e.target.innerText;
-    if(categoryText ==="All") {
-        category = "";
-    } else {
-        category = categoryText;
-    };
-    render();
-};
-
-function addClickEventOnDropdownItem() {
-    let categoryItems = document.querySelectorAll(".dropdown-item");
-    categoryItems.forEach(item => item.addEventListener("click", filterOnCategory))
-}
 
 //search
 let searchInp = document.querySelector("#search-inp");
@@ -411,12 +374,12 @@ let nextPageBtn =document.querySelector("#next-page-btn");
 
 async function getPagesCount() {
     let res = await fetch(`${STUDENTS_API}`);
-    let products = await res.json();
-    let pagesCount = +Math.ceil(products.length/2);
+    let students = await res.json();
+    let pagesCount = +Math.ceil(students.length/2);
     console.log(pagesCount,  typeof pagesCount);
     return pagesCount;
 };
-// getPagesCount();
+
 
 async function checkPages() {
     let maxPagesNum = await getPagesCount();
