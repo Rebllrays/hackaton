@@ -31,7 +31,7 @@ input {
     border-radius: 2px;
 }
 .card {
-    background-color: #d4d4d4;
+    background-color: #ffffff;
      /* color: white; */
      border: 0;
      transition: 0.3s;
@@ -39,7 +39,8 @@ input {
 .card:hover {
     width: 27%;
     transition: 0.5s;
-    background: #ffffff;
+    background: #2a2a2a;
     padding: 10px;
     border-radius: 10px;
+    color: #fff;
 }
