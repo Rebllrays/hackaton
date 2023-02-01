@@ -20,32 +20,39 @@
       "password": "qwert",
       "isAdmin": false,
       "id": 3
+    },
+    {
+      "username": "h",
+      "age": "jjk",
+      "password": "c",
+      "isAdmin": false,
+      "id": 4
     }
   ],
   "students": [
     {
-      "fullname": "asdf",
+      "fullname": "Jika",
       "image": "https://i.pinimg.com/564x/fd/c8/f8/fdc8f8d6a56a2e33c3b4aa4c167c2572.jpg",
-      "phone": "456789",
-      "weekKpi": "977",
-      "monthKpi": "7899",
+      "phone": "+9965012000",
+      "weekKpi": "100",
+      "monthKpi": "5000",
       "id": 1
     },
     {
-      "fullname": "asdf",
+      "fullname": "Zamir",
       "image": "https://i.pinimg.com/564x/00/da/c7/00dac7a4312b1210a98e678144441aba.jpg",
-      "phone": "456789",
-      "weekKpi": "977",
-      "monthKpi": "7899",
-      "id": 1
+      "phone": "+996 15456789",
+      "weekKpi": "99",
+      "monthKpi": "4666",
+      "id": 2
     },
     {
-      "fullname": "asdf",
+      "fullname": "Akyl",
       "image": "https://i.pinimg.com/564x/00/da/c7/00dac7a4312b1210a98e678144441aba.jpg",
-      "phone": "456789",
-      "weekKpi": "977",
-      "monthKpi": "7899",
-      "id": 1
+      "phone": "+996 12456789",
+      "weekKpi": "98",
+      "monthKpi": "4855",
+      "id": 3
     }
   ]
 }
