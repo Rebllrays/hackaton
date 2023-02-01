@@ -26,7 +26,7 @@ loginUserModalBtn.addEventListener('click', () => {
 });
 
 // register logic
-const USERS_API = "http://localhost:8006/students";
+const USERS_API = "http://localhost:8006/users";
 
 // inputs group 
 let usernameInp = document.querySelector("#reg-username");
@@ -196,45 +196,42 @@ function showAdminPanel() {
 };
 
 let studentName = document.querySelector("#student-name");
-let studentPhone = document.querySelector("#student-phone");
+let studentPhoneNumber = document.querySelector("#student-phone");
 let studentWeekKpi = document.querySelector("#kpi-week");
 let studentMonthKpi = document.querySelector("#kpi-month");
 
-const PRODUCTS_API = "http://localhost:8000/products";
+const STUDENTS_API = "http://localhost:8006/students";
 async function createProduct() {
     if(
-        !productTitle.value.trim() ||
-        !productPrice.value.trim() ||
-        !productDesc.value.trim() ||
-        !productImage.value.trim() ||
-        !productCategory.value.trim()
+        !studentName.value.trim() ||
+        !studentPhoneNumber.value.trim() ||
+        !studentWeekKpi.value.trim() ||
+        !studentMonthKpi.value.trim() 
     ) {
         alert("Some inputs are empty!");
         return;
     };
 
-    let productObj = {
-        title: productTitle.value,
-        price: productPrice.value,
-        desc: productDesc.value,
-        image: productImage.value,
-        category: productCategory.value
+    let studentObj = {
+        fullname: studentName.value,
+        phone: studentPhoneNumber.value,
+        weekKpi: studentWeekKpi.value,
+        monthKpi: studentMonthKpi.value,
     };
     // console.log(productObj);
 
-    await fetch(PRODUCTS_API, {
+    await fetch(STUDENTS_API, {
         method:"POST",
-        body: JSON.stringify(productObj),
+        body: JSON.stringify(studentObj),
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         }
     });
 
-    productTitle.value = "";
-    productPrice.value = "";
-    productDesc.value = "";
-    productDesc.value = "";
-    productCategory.value = "";
+    studentName.value = "";
+    studentPhoneNumber.value = "";
+    studentWeekKpi.value = "";
+    studentMonthKpi.value = "";
 
     render();
 };
@@ -250,9 +247,9 @@ let category = "";
 async function render() {
     let productsList = document.querySelector("#products-list");
     productsList.innerHTML = "";
-    let requestAPI = `${PRODUCTS_API}?q=${search}&category=${category}&_page=${currentPage}&_limit=2`;
+    let requestAPI = `${STUDENTS_API}?q=${search}&category=${category}&_page=${currentPage}&_limit=2`;
     if(!category) {
-        requestAPI = `${PRODUCTS_API}?q=${search}&_page=${currentPage}&_limit=2`;
+        requestAPI = `${STUDENTS_API}?q=${search}&_page=${currentPage}&_limit=2`;
     };
 
     let res = await fetch(requestAPI);
@@ -261,12 +258,11 @@ async function render() {
     products.forEach(item => {
         productsList.innerHTML += `        
         <div class="card m-5" style="width: 18rem;">
-            <img src="${item.image}" class="card-img-top" alt="error:(" height = "200">
             <div class="card-body">
-                <h5 class="card-title">${item.name}</h5>
+                <h5 class="card-title">${item.fullname}</h5>
                 <p class="card-text">${item.phone}</p>
-                <p class="card-text">${item.studentWeekKpi}</p>
-                <p class="card-text">${item.studentMonthKpi}</p>
+                <p class="card-text">${item.weekKpi}</p>
+                <p class="card-text">${item.monthKpi}</p>
                 ${checkUserForProductCreate() ? `
                 <a href="#" class="btn btn-dark btn-edit" id="edit-${item.id}">Edit</a>
                 <a href="#" class="btn btn-danger btn-delete" id ="del-${item.id}">Delete</a>
