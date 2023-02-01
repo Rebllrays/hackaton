@@ -261,10 +261,10 @@ async function render() {
         <div class="card m-5" style="width: 18rem;">
         <img src="${item.image}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">${item.fullname}</h5>
-                <p class="card-text">${item.phone}</p>
-                <p class="card-text">${item.weekKpi}</p>
-                <p class="card-text">${item.monthKpi}</p>
+                <h5 class="card-title">Username: ${item.fullname}</h5>
+                <p class="card-text">Phone: ${item.phone}</p>
+                <p class="card-text">KPI for week: ${item.weekKpi}</p>
+                <p class="card-text">KPI for month: ${item.monthKpi}</p>
                 ${checkUserForProductCreate() ? `
                 <a href="#" class="btn btn-dark btn-edit" id="edit-${item.id}">Edit</a>
                 <a href="#" class="btn btn-danger btn-delete" id ="del-${item.id}">Delete</a>
