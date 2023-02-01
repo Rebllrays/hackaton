@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
        <!-- navbar -->
        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">JSON-server API</a>
+          <a class="navbar-brand" href="#">STUDENTS</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -32,6 +35,20 @@
               <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#" target="_blank">Students</a>
               </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                id="search-inp"
+              />
+            </form>
+
+            <div class="d-flex">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  
               <li class="nav-item">
                 <a
                   class="nav-link"
@@ -66,16 +83,8 @@
               <li class="nav-item">
                 <a class="nav-link" id="showUsername">No User</a>
               </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                id="search-inp"
-              />
-            </form>
+              </ul>
+            </div>
           </div>
         </div>
       </nav>
@@ -83,7 +92,7 @@
          <!-- admin panel  -->
     <div class="w-100 justify-content-center text-center">
         <div class="mt-5 d-flex flex-column w-100" id="admin-panel">
-            <h2>Admin panel</h2>
+            <h2>Student Information</h2>
             <input type="text" id="student-name" placeholder="Name of Student" class="mb-2 w-50 m-auto">
             <input type="text" id="student-image" placeholder="Student Image" class="mb-2 w-50 m-auto">
             <input type="number" id="student-phone" placeholder="Phone of Student" class="mb-2 w-50 m-auto">
@@ -94,7 +103,7 @@
         </div>
     </div>
 
-    <div class="d-flex flex-wrap justify-content-center" id="products-list">
+    <div class="d-flex flex-wrap justify-content-center" id="students-list">
 
     </div>
 
@@ -152,7 +161,7 @@
       
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-dark" id="registerUser-btn">Register</button>
+                  <button type="button" class="btn" id="registerUser-btn">Register</button>
                   <button type="button" class="btn btn-dark" id="loginUser-btn">Login</button>
       
                 </div>

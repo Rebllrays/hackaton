@@ -202,7 +202,7 @@ let studentMonthKpi = document.querySelector("#kpi-month");
 let studentImg = document.querySelector('#student-image');
 
 const STUDENTS_API = "http://localhost:8006/students";
-async function createProduct() {
+async function createStudent() {
     if(
         !studentImg.value.trim() ||
         !studentName.value.trim() ||
@@ -240,27 +240,27 @@ async function createProduct() {
     render();
 };
 
-let addProductBtn = document.querySelector(".add-student-btn");
-addProductBtn.addEventListener('click', createProduct);
+let addStudentBtn = document.querySelector(".add-student-btn");
+addStudentBtn.addEventListener('click', createStudent);
 
 // read
 let currentPage =1;
 let search ="";
-let category = "";
+let category ="";
 
 async function render() {
-    let productsList = document.querySelector("#products-list");
-    productsList.innerHTML = "";
+    let studentsList = document.querySelector("#students-list");
+    studentsList.innerHTML = "";
     let requestAPI = `${STUDENTS_API}?q=${search}&category=${category}&_page=${currentPage}&_limit=2`;
     if(!category) {
         requestAPI = `${STUDENTS_API}?q=${search}&_page=${currentPage}&_limit=2`;
     };
 
     let res = await fetch(requestAPI);
-    let products = await res.json();
+    let students = await res.json();
 
-    products.forEach(item => {
-        productsList.innerHTML += `        
+    students.forEach(item => {
+        studentsList.innerHTML += `        
         <div class="card m-5" style="width: 18rem;">
         <img src="${item.image}" class="card-img-top" alt="...">
             <div class="card-body">
@@ -276,7 +276,7 @@ async function render() {
       </div>`;
     }) ;
 
-    if(products.length === 0) return;
+    if(students.length === 0) return;
     addCategoryTodropdownMenu();
     addDeleteEvent();
     addEditEvent();
@@ -284,19 +284,19 @@ async function render() {
 };
 render();
 
-async function addCategoryTodropdownMenu() {
-    let res = await fetch(STUDENTS_API);
-    let data = await res.json();
-    let categories = new Set (data.map(item => item.category));
-    // console.log(categories);
-    let categoriesList = document.querySelector(".dropdown-menu");
-    categoriesList.innerHTML = '<li><a class="dropdown-item" href="#">All</a></li>';
-    categories.forEach(item => {
-        categoriesList.innerHTML +=`<li><a class="dropdown-item" href="#">${item}</a></li>`;
-    });
+// async function addCategoryTodropdownMenu() {
+//     let res = await fetch(STUDENTS_API);
+//     let data = await res.json();
+//     let categories = new Set (data.map(item => item.category));
+//     // console.log(categories);
+//     let categoriesList = document.querySelector(".dropdown-menu");
+//     categoriesList.innerHTML = '<li><a class="dropdown-item" href="#">All</a></li>';
+//     categories.forEach(item => {
+//         categoriesList.innerHTML +=`<li><a class="dropdown-item" href="#">${item}</a></li>`;
+//     });
 
-    addClickEventOnDropdownItem();
-};
+//     addClickEventOnDropdownItem();
+// };
 
 // delete 
 async function deleteProduct(e) {
@@ -311,8 +311,8 @@ async function deleteProduct(e) {
 
 
 function addDeleteEvent() {
-    let deleteProductBtn = document.querySelectorAll(".btn-delete");
-    deleteProductBtn.forEach(item => item.addEventListener("click", deleteProduct));
+    let deleteStudentBtn = document.querySelectorAll(".btn-delete");
+    deleteStudentBtn.forEach(item => item.addEventListener("click", deleteProduct));
 };
 
 // update 
