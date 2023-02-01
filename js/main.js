@@ -124,7 +124,7 @@ function checkUserInUsers(username, users) {
 }
 
 function checkUserPassword(user, password) {
-    return user.password ===password;
+    return user.password === password;
 };
 
 function setUserToStorage(username, isAdmin) {
