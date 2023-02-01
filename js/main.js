@@ -195,11 +195,10 @@ function showAdminPanel() {
     };
 };
 
-let productTitle = document.querySelector("#product-title");
-let productPrice = document.querySelector("#product-price");
-let productDesc = document.querySelector("#product-desc");
-let productImage = document.querySelector("#product-image");
-let productCategory = document.querySelector("#product-category");
+let studentName = document.querySelector("#student-name");
+let studentPhone = document.querySelector("#student-phone");
+let studentWeekKpi = document.querySelector("#kpi-week");
+let studentMonthKpi = document.querySelector("#kpi-month");
 
 const PRODUCTS_API = "http://localhost:8000/products";
 async function createProduct() {
@@ -258,16 +257,16 @@ async function render() {
 
     let res = await fetch(requestAPI);
     let products = await res.json();
-    // console.log(products);
+
     products.forEach(item => {
         productsList.innerHTML += `        
         <div class="card m-5" style="width: 18rem;">
             <img src="${item.image}" class="card-img-top" alt="error:(" height = "200">
             <div class="card-body">
-                <h5 class="card-title">${item.title}</h5>
-                <p class="card-text">${item.desc}</p>
-                <p class="card-text">${item.category}</p>
-                <p class="card-text">${item.price}</p>
+                <h5 class="card-title">${item.name}</h5>
+                <p class="card-text">${item.phone}</p>
+                <p class="card-text">${item.studentWeekKpi}</p>
+                <p class="card-text">${item.studentMonthKpi}</p>
                 ${checkUserForProductCreate() ? `
                 <a href="#" class="btn btn-dark btn-edit" id="edit-${item.id}">Edit</a>
                 <a href="#" class="btn btn-danger btn-delete" id ="del-${item.id}">Delete</a>
@@ -444,3 +443,5 @@ nextPageBtn.addEventListener("click", () => {
     checkPages();
     render();
 });
+
+
