@@ -6,26 +6,40 @@
     box-sizing: border-box;
 }
 body {
+    /* background: linear-gradient(-45deg, #10091d, #46315c,#68507b,#d9d8d9,#b3a3ba, #8d769a) !important; */
     font-family: 'Space Mono', monospace;
-    background-color: #141617 !important;
-    color:aliceblue;
+    background-color: #9f81cd !important;
+    color:rgb(13, 14, 14);
 }
 .navbar {
     background-color: #141617 !important;
     font-family: 'Space Mono', monospace;
 }
 .btn {
-    background-color: #264653 !important;
+    background-color: #000000 !important;
     color: aliceblue;
-
+    border: 0;
 }
 .modal-content {
-    background-color: #374248 !important;
+    background-color: #000000 !important;
     font-family: 'Space Mono', monospace;
-    /* color: #14161    7; */
+    color: white;
 
 }
-
+input {
+    border: 0;
+    border-radius: 2px;
+}
 .card {
-     color: black;
+    background-color: #d4d4d4;
+     /* color: white; */
+     border: 0;
+     transition: 0.3s;
+}
+.card:hover {
+    width: 27%;
+    transition: 0.5s;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
 }
