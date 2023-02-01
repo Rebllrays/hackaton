@@ -124,7 +124,7 @@ function checkUserInUsers(username, users) {
 }
 
 function checkUserPassword(user, password) {
-    return user.password ===password;
+    return user.password === password;
 };
 
 function setUserToStorage(username, isAdmin) {
@@ -199,10 +199,12 @@ let studentName = document.querySelector("#student-name");
 let studentPhoneNumber = document.querySelector("#student-phone");
 let studentWeekKpi = document.querySelector("#kpi-week");
 let studentMonthKpi = document.querySelector("#kpi-month");
+let studentImg = document.querySelector('#student-image');
 
 const STUDENTS_API = "http://localhost:8006/students";
 async function createProduct() {
     if(
+        !studentImg.value.trim() ||
         !studentName.value.trim() ||
         !studentPhoneNumber.value.trim() ||
         !studentWeekKpi.value.trim() ||
@@ -214,6 +216,7 @@ async function createProduct() {
 
     let studentObj = {
         fullname: studentName.value,
+        image: studentImg.value,
         phone: studentPhoneNumber.value,
         weekKpi: studentWeekKpi.value,
         monthKpi: studentMonthKpi.value,
@@ -229,6 +232,7 @@ async function createProduct() {
     });
 
     studentName.value = "";
+    studentImg.value = '';
     studentPhoneNumber.value = "";
     studentWeekKpi.value = "";
     studentMonthKpi.value = "";
@@ -236,10 +240,10 @@ async function createProduct() {
     render();
 };
 
-let addProductBtn = document.querySelector(".add-product-btn");
+let addProductBtn = document.querySelector(".add-student-btn");
 addProductBtn.addEventListener('click', createProduct);
 
-// read 
+// read
 let currentPage =1;
 let search ="";
 let category = "";
@@ -254,11 +258,11 @@ async function render() {
 
     let res = await fetch(requestAPI);
     let products = await res.json();
-    // console.log(products);
+
     products.forEach(item => {
         productsList.innerHTML += `        
         <div class="card m-5" style="width: 18rem;">
-            
+        <img src="${item.image}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${item.fullname}</h5>
                 <p class="card-text">${item.phone}</p>
@@ -281,7 +285,7 @@ async function render() {
 render();
 
 async function addCategoryTodropdownMenu() {
-    let res = await fetch(PRODUCTS_API);
+    let res = await fetch(STUDENTS_API);
     let data = await res.json();
     let categories = new Set (data.map(item => item.category));
     // console.log(categories);
@@ -299,7 +303,7 @@ async function deleteProduct(e) {
     // console.log("OK!");
     let productId = e.target.id.split("-")[1];
     // console.log(productId);
-    await fetch(`${PRODUCTS_API}/${productId}`, {
+    await fetch(`${STUDENTS_API}/${productId}`, {
         method: "DELETE"
     });
     render();
@@ -312,7 +316,7 @@ function addDeleteEvent() {
 };
 
 // update 
-let saveChangesBtn = document.querySelector(".save-changes-btn");
+let saveChangesBtn = document.querySelector(".save-student-btn");
 function checkCreateAndSaveBtn() {
     if(saveChangesBtn.id) {
         addProductBtn.setAttribute("style", "display: none;");
@@ -327,7 +331,7 @@ checkCreateAndSaveBtn();
 async function addProductDataToForm(e) {
     let productId = e.target.id.split("-")[1];
     // console.log(productId);
-    let res = await fetch(`${PRODUCTS_API}/${productId}`);
+    let res = await fetch(`${STUDENTS_API}/${productId}`);
     let productObj = await res.json();
     // console.log(productObj);
 
@@ -358,7 +362,7 @@ async function saveChanges(e) {
         category:productCategory.value,
     };
 
-    await fetch(`${PRODUCTS_API}/${e.target.id}`, {
+    await fetch(`${STUDENTS_API}/${e.target.id}`, {
         method: "PUT",
         body:JSON.stringify(updatedProductObj),
         headers: {
@@ -406,7 +410,7 @@ let prevPageBtn =document.querySelector("#prev-page-btn");
 let nextPageBtn =document.querySelector("#next-page-btn");
 
 async function getPagesCount() {
-    let res = await fetch(`${PRODUCTS_API}`);
+    let res = await fetch(`${STUDENTS_API}`);
     let products = await res.json();
     let pagesCount = +Math.ceil(products.length/2);
     console.log(pagesCount,  typeof pagesCount);
@@ -440,3 +444,5 @@ nextPageBtn.addEventListener("click", () => {
     checkPages();
     render();
 });
+
+

@@ -1,4 +1,14 @@
 {
-    "users":[],
-    "students":[]
+  "users": [
+    {
+      "username": "fang",
+      "age": "fang",
+      "password": "123",
+      "isAdmin": true,
+      "id": 1
+    }
+  ],
+  "students": [
+    
+  ]
 }
