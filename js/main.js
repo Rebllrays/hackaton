@@ -251,7 +251,7 @@ let search ="";
 async function render() {
     let studentsList = document.querySelector("#students-list");
     studentsList.innerHTML = "";
-    let requestAPI = `${STUDENTS_API}?q=${search}&_page=${currentPage}&_limit=2`;
+    let requestAPI = `${STUDENTS_API}?q=${search}&_page=${currentPage}&_limit=3`;
 
     let res = await fetch(requestAPI);
     let students = await res.json();

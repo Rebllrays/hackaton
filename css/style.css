@@ -7,6 +7,8 @@
 }
 body {
     font-family: 'Space Mono', monospace;
+    background-color: #141617 !important;
+    color:aliceblue;
 }
 .navbar {
     background-color: #141617 !important;
@@ -17,8 +19,13 @@ body {
     color: aliceblue;
 
 }
-
-.modal {
-    background-color: #141617 !important;
+.modal-content {
+    background-color: #374248 !important;
     font-family: 'Space Mono', monospace;
+    /* color: #14161    7; */
+
+}
+
+.card {
+     color: black;
 }
